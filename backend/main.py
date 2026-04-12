@@ -1,5 +1,5 @@
-from contextlib import asynccontextmanager
 import os
+from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -7,11 +7,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
-from api.health import router as health_router
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # DB 테이블 자동 생성
+    from database import engine, Base
+    import models.video  # noqa: F401 — 모델 등록
+    Base.metadata.create_all(bind=engine)
     print("Vision AutoML Platform starting...")
     yield
     print("Vision AutoML Platform shutting down...")
@@ -20,7 +22,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Vision AutoML Platform API",
     description="로컬 GPU 기반 YOLO 객체감지 모델 자동화 플랫폼",
-    version="0.1.0",
+    version="0.2.0",
     lifespan=lifespan,
 )
 
@@ -36,7 +38,11 @@ app.add_middleware(
 )
 
 # Routers
+from api.health import router as health_router
+from api.videos import router as videos_router
+
 app.include_router(health_router, tags=["Health"])
+app.include_router(videos_router)
 
 
 if __name__ == "__main__":
