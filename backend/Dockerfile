@@ -3,10 +3,10 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # 시스템 의존성 설치 (PostgreSQL 클라이언트, OpenCV 런타임)
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     libpq-dev \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
