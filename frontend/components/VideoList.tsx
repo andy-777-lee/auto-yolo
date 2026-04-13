@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import {
   Video,
@@ -90,6 +91,15 @@ export default function VideoList({ videos, onDelete }: Props) {
                   {s.label}
                   {video.status === "done" && ` (${video.extracted_frames}프레임)`}
                 </span>
+                {video.status === "done" && (
+                  <Link
+                    href={`/label/${video.id}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-xs px-2.5 py-1 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
+                  >
+                    라벨링
+                  </Link>
+                )}
                 <button
                   onClick={(e) => handleDelete(e, video.id)}
                   className="text-xs text-muted-foreground hover:text-destructive transition-colors px-2 py-1 rounded"
