@@ -52,3 +52,5 @@ data/
 
 # 업로드된 파일 및 추출 프레임 (로컬 전용)
 backend/uploads/
+backend/datasets/
+backend/runs/
