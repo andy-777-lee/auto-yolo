@@ -70,7 +70,19 @@ docker-compose up db
 
 ## Phase 진행 현황
 - [x] Phase 1: 기본 세팅 (폴더 구조, Docker, CORS, Health API)
-- [ ] Phase 2: 영상 업로드 + 프레임 추출
-- [ ] Phase 3: 라벨링 UI
-- [ ] Phase 4: YOLO 학습 파이프라인
-- [ ] Phase 5: 모델 관리 + 추론
+- [x] Phase 2: 영상 업로드 + 프레임 추출 (OpenCV BackgroundTask)
+- [x] Phase 3: 라벨링 UI (Canvas bbox, YOLO ZIP 내보내기)
+- [x] Phase 4: YOLO 학습 파이프라인 (ultralytics, 에포크 메트릭)
+- [x] Phase 5: 모델 관리 + 추론 (이미지 추론, bbox 시각화)
+
+## API 라우터 목록
+| 접두사 | 설명 |
+|--------|------|
+| /health | 헬스체크 |
+| /api/v1/videos | 영상 업로드/프레임 |
+| /api/v1/labels | 라벨 CRUD + YOLO 내보내기 |
+| /api/v1/training | YOLO 학습 관리 |
+| /api/v1/models | 모델 목록 + 이미지 추론 |
+
+## 전체 워크플로우
+영상 업로드 → 프레임 추출 → 라벨링 → YOLO 학습 → 추론

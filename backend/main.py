@@ -15,6 +15,8 @@ async def lifespan(app: FastAPI):
     import models.label     # noqa: F401
     import models.training  # noqa: F401
     Base.metadata.create_all(bind=engine)
+    # results 디렉토리 생성
+    os.makedirs(os.getenv("RESULTS_DIR", "/app/results"), exist_ok=True)
     print("Vision AutoML Platform starting...")
     yield
     print("Vision AutoML Platform shutting down...")
@@ -23,7 +25,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Vision AutoML Platform API",
     description="로컬 GPU 기반 YOLO 객체감지 모델 자동화 플랫폼",
-    version="0.4.0",
+    version="0.5.0",
     lifespan=lifespan,
 )
 
@@ -41,11 +43,13 @@ from api.health import router as health_router
 from api.videos import router as videos_router
 from api.labels import router as labels_router
 from api.training import router as training_router
+from api.inference import router as inference_router
 
 app.include_router(health_router, tags=["Health"])
 app.include_router(videos_router)
 app.include_router(labels_router)
 app.include_router(training_router)
+app.include_router(inference_router)
 
 
 if __name__ == "__main__":

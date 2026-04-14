@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import VideoUpload from "@/components/VideoUpload";
 import VideoList from "@/components/VideoList";
@@ -59,11 +60,17 @@ export default function Home() {
             <h1 className="text-lg font-bold">Vision AutoML Platform</h1>
             <p className="text-xs text-muted-foreground">YOLO 객체감지 모델 자동화</p>
           </div>
-          <div className="flex items-center gap-2 text-xs">
+          <nav className="flex items-center gap-2 text-xs">
+            <Link
+              href="/models"
+              className="px-3 py-1.5 border border-border rounded-md hover:bg-accent transition-colors font-medium"
+            >
+              🤖 모델 & 추론
+            </Link>
             <span className="px-2.5 py-1 bg-green-100 text-green-700 rounded-full font-medium">
-              Phase 2 — 영상 업로드
+              All Phases 완료 ✓
             </span>
-          </div>
+          </nav>
         </div>
       </header>
 

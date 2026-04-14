@@ -27,6 +27,7 @@ services:
       - FRAMES_DIR=/app/uploads/frames
       - DATASETS_DIR=/app/datasets
       - RUNS_DIR=/app/runs
+      - RESULTS_DIR=/app/results
     depends_on:
       db:
         condition: service_healthy
@@ -35,6 +36,7 @@ services:
       - uploads_data:/app/uploads
       - datasets_data:/app/datasets
       - runs_data:/app/runs
+      - results_data:/app/results
     networks:
       - vision-net
 
@@ -61,6 +63,7 @@ volumes:
   uploads_data:
   datasets_data:
   runs_data:
+  results_data:
 
 networks:
   vision-net:
